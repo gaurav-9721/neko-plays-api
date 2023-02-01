@@ -1,0 +1,40 @@
+const jwt = require('jsonwebtoken')
+const User = require('../db/userschema')
+const cookieParser = require('cookie-parser')
+
+const Authenticate = async (req, res, next) => {
+
+    try{
+        
+        const jwtToken = req.cookies.nekoplays;
+        //console.log(jwtToken)
+        const verifyToken =  jwt.verify(jwtToken, process.env.SECRET_KEY)
+        
+
+        const user = await User.findOne({_id: verifyToken._id})
+        
+        userDetails = {
+            'fullname': user.fullName,
+            'email': user.email,
+            'username': user.userName
+        }
+        console.log('JWT AUTH')
+        console.log(userDetails)
+        req.userDetails = userDetails;
+        next();
+
+    }
+
+    catch (err){
+        console.log('_____________________________')
+        console.log('Failed to authenticate JWT')
+        console.log(______________________________)
+        console.log(err)
+
+    }
+
+
+
+}
+
+module.exports = Authenticate;
