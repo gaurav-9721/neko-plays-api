@@ -40,6 +40,9 @@ router.post('/login', async (req, res) => {
     })
 
     console.log("Login successful")
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'POST');
+    res.append('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token')
     return res.status(200).json({"message": "Login Successful"})
     
 })
@@ -51,16 +54,33 @@ router.get('/logout', async (req, res) => {
 
 router.get('/userloggedin', async (req, res) => {
     const jwtToken = req.cookies.nekoplays;
-    const verifyToken = jwt.verify(jwtToken, process.env.SECRET_KEY)
 
+    try{
+        const verifyToken = jwt.verify(jwtToken, process.env.SECRET_KEY)
+    
     if (verifyToken){
-        return res.status(200).json({"login": "true"})
-        console.log('User Logged in')
+        res.status(200)
+        res.append('Access-Control-Allow-Origin', ['*']);
+        res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.send({"login": true})
+        
     }
     else{
-        return res.status(404).json({"login": "false"})
+        res.status(422)
+        res.append('Access-Control-Allow-Origin', ['*']);
+        res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.send({"login": false})
         console.log('User Logged out')
+        }
     }
+    catch (err){
+        res.status(200)
+        res.append('Access-Control-Allow-Origin', ['*']);
+        res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.send({"login": false})
+        console.log('Cookie JWT does not exist')
+    }
+    
 })
 
 module.exports = router;

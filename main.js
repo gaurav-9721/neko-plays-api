@@ -1,9 +1,12 @@
 const express = require("express")
 const dotenv = require('dotenv')
 const mongoose = require("mongoose")
+const cors = require('cors');
 const app = express();
 
+
 app.use(express.json())
+//app.use(cors());
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
