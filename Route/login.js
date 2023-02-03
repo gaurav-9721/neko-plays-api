@@ -40,9 +40,9 @@ router.post('/login', async (req, res) => {
     })
 
     console.log("Login successful")
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'POST');
-    res.append('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token')
+    // res.append('Access-Control-Allow-Origin', ['*']);
+    // res.append('Access-Control-Allow-Methods', 'POST');
+    // res.append('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token')
     return res.status(200).json({"message": "Login Successful"})
     
 })
