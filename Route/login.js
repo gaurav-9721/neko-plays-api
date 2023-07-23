@@ -61,9 +61,19 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/logout', async (req, res) => {
-    cookies.set('nekoplays', {expires: Date.now()});
+    res.clearCookie('nekoplays')
+    res.cookie("nekoplays", "",  { 
+        expires: new Date(Date.now()), 
+        httpOnly: true, 
+        secure: true,
+        sameSite : "none",
+        overwrite: true
+    })
+    res.clearCookie('nekoplays')
     console.log("Logout Success")
+    
     return res.status(200).json({ 'message': 'Logout Successful' })
+
 })
 
 router.get('/userloggedin', async (req, res) => {
