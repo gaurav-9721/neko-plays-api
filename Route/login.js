@@ -46,7 +46,8 @@ router.post('/login', async (req, res) => {
         res.cookie("nekoplays", jwttoken,  { 
             expires: new Date(Date.now() + 900000), 
             httpOnly: true, 
-            secure: true 
+            secure: true,
+            sameSite : "none"
         })
     }catch(err){
         console.log('Error', err)
