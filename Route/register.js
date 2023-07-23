@@ -10,14 +10,17 @@ router.get('/register', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    const username = req.body.username.toString().trim(),
-    name = req.body.fullname.toString().trim(),
-    email = req.body.email.toString().trim(),
-    pass = req.body.password.toString().trim(),
-    cpass = req.body.cpassword.toString().trim()
 
+    console.log(req.body.body)
+    const username = req.body.body.username.toString().trim(),
+    name = req.body.body.fullname.toString().trim(),
+    email = req.body.body.email.toString().trim(),
+    pass = req.body.body.password.toString().trim(),
+    cpass = req.body.body.cpassword.toString().trim()
 
-    console.log(name, email)
+    
+
+    
     if ((!username) ||  (!name) ||  (!email) ||  (!pass) ||  (!cpass)) {
         return res.status(422).json({ "error": "Please fill all the fields properly" })
     }
@@ -51,7 +54,7 @@ router.post('/register', async (req, res) => {
         console.log("Registration Successful")
         return res.status(201).json({ 'message': "Registered successfully"})
     }else{
-        return res.status(500).json({ 'message': "Registeration Failed"})
+        return res.status(500).json({ 'error': "Registeration Failed"})
     }
 
 })

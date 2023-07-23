@@ -5,12 +5,12 @@ const cookieParser = require('cookie-parser')
 const Authenticate = async (req, res, next) => {
 
     try{
-        
+        console.log('Auth Here')
         const jwtToken = req.cookies.nekoplays;
         //console.log(jwtToken)
         const verifyToken =  jwt.verify(jwtToken, process.env.SECRET_KEY)
         
-
+        
         const user = await User.findOne({_id: verifyToken._id})
         
         userDetails = {
@@ -26,14 +26,11 @@ const Authenticate = async (req, res, next) => {
     }
 
     catch (err){
-        console.log('_____________________________')
+       
         console.log('Failed to authenticate JWT')
-        console.log(______________________________)
-        console.log(err)
-
+        
+        //console.log(err)
     }
-
-
 
 }
 
