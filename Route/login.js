@@ -38,16 +38,16 @@ router.post('/login', async (req, res) => {
     // JWT TOKEN
     const jwttoken =  jwt.sign({ '_id': user._id }, process.env.SECRET_KEY)
     console.log("JWT", jwttoken)
-//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//   res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Origin", "https://neko-plays.onrender.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Credentials", true);
     try{
         console.log("Enter cookie")
-        res.cookie("nekoplays", jwttoken, {
-            httpOnly: true,
-            maxAge: 3600000
-        
-         })
+        res.cookie("nekoplays", jwttoken,  { 
+            expires: new Date(Date.now() + 900000), 
+            httpOnly: true, 
+            secure: true 
+        })
     }catch(err){
         console.log('Error', err)
     }
